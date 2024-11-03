@@ -9,7 +9,7 @@ A macropod built around Pimoroni's Keybow2040 with OLED and rotary encoder.
 This is a personal project that I use daily. It works, so I thought I'd share.
 ## Credits
 * Original Idea and 3D-printed case files: [ManelTo](https://www.printables.com/model/228327-keybow2040-macropad-with-display-and-encoder)
-* Updated firmware: [ntindle](https://github.com/ntindle/Keybow2040-Macro-Pad/tree/main)
+* Updated ideas and instructions: [ntindle](https://github.com/ntindle/Keybow2040-Macro-Pad/tree/main)
 * PMK library and HID examples: [Pimoroni](https://github.com/pimoroni/pmk-circuitpython)
 * Macro-Handler: [Nox Ferocia](https://forums.pimoroni.com/t/macro-handler-for-keybow2040-pico-keypad-base-etc/21080)
 * Devs who created the adafruit bundle and PMK library.
