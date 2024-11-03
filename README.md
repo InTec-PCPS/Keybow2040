@@ -1,5 +1,5 @@
 # Keybow2040
-A macropod built around Pimoroni's Keybow2040 with OLED and rotary encoder.
+A macropad built around Pimoroni's Keybow2040 with OLED and rotary encoder.
 * Works with CircuitPython 9.x
 * Supports MIDI events. Also supports key, text, and mouse events, plus non-US keyboard characters.
 * Press encoder to change layers. Displays a large bitmapped number on layer changes.
