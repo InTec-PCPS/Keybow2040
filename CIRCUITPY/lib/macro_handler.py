@@ -110,7 +110,7 @@ def parse_mouse_select( mouse_buttons, x_axis, y_axis, scroll ) -> None:
 _macro_parsers = {
 "MOD+": parse_mod_plus,
 "UTF16": parse_utf16,
-"MOUSE SELECT": parse_mouse_select
+"MOUSE SELECT": parse_mouse_select,
 }
 
 class MacroHandler( HIDPool ):
