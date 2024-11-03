@@ -7,6 +7,9 @@ from adafruit_midi.control_change import ControlChange
 from adafruit_midi.note_on import NoteOn
 from adafruit_midi.note_off import NoteOff
 
+from macro_handler import MacroHandler
+macro_comm = MacroHandler()
+
 # Configuration options
 BRIGHTNESS = 0.25  # NeoPixel and LED brightness
 INACTIVITY_TIMEOUT = 30  # OLED sleep timeout in seconds
@@ -28,6 +31,7 @@ def spanish_char(char, platform="WIN"):
         'ú': {"MAC": ("UTF16", "MAC", "00FA"), "WIN": ("UTF16", "WIN", "00FA"), "NIX": ("UTF16", "NIX", "00FA")},
         'Ú': {"MAC": ("UTF16", "MAC", "00DA"), "WIN": ("UTF16", "WIN", "00DA"), "NIX": ("UTF16", "NIX", "00DA")},
         'ü': {"MAC": ("UTF16", "MAC", "00FC"), "WIN": ("UTF16", "WIN", "00FC"), "NIX": ("UTF16", "NIX", "00FC")},
+        'Ü': {"MAC": ("UTF16", "MAC", "00DC"), "WIN": ("UTF16", "WIN", "00DC"), "NIX": ("UTF16", "NIX", "00DC")},
         '¡': {"MAC": ("UTF16", "MAC", "00A1"), "WIN": ("UTF16", "WIN", "00A1"), "NIX": ("UTF16", "NIX", "00A1")},
         '¿': {"MAC": ("UTF16", "MAC", "00BF"), "WIN": ("UTF16", "WIN", "00BF"), "NIX": ("UTF16", "NIX", "00BF")},
     }
@@ -51,30 +55,23 @@ layers = {
         0: ("KEY", Keycode.ZERO), 4: ("KEY", Keycode.KEYPAD_PERIOD), 8: ("KEY", Keycode.DELETE),12: ("KEY", Keycode.ENTER)
         },
     1: {
-        3: spanish_char('á', platform="WIN"), 7: spanish_char('ú', platform="WIN"),
-        2: ("TEXT", "os"), 6: spanish_char('ó', platform="WIN"),
-        1: spanish_char('ñ', platform="WIN"), 5: spanish_char('í', platform="WIN"),
-        0: ("TEXT", "enga"), 4: spanish_char('é', platform="WIN")
+        3: ("TEXT", " lang=\"es\""),
+        2: ("TEXT", "<strong>"), 6: ("TEXT", "</strong>"),
+        1: ("TEXT", "<span lang=\"es\">"), 5: ("TEXT", "</span>"),
+        0: ("TEXT", " target=\"_blank\"")
         },
     2: {
-        2: ("MEDIA", ConsumerControlCode.VOLUME_DECREMENT),
-        1: ("MEDIA", ConsumerControlCode.VOLUME_INCREMENT),
-        0: ("MEDIA", ConsumerControlCode.PLAY_PAUSE)
+        3: spanish_char('á', platform="WIN"), 7: spanish_char('Á', platform="WIN"), 11: spanish_char('ú', platform="WIN"), 15: spanish_char('Ú', platform="WIN"),
+        2: spanish_char('é', platform="WIN"), 6: spanish_char('É', platform="WIN"), 10: spanish_char('ü', platform="WIN"), 14: spanish_char('Ü', platform="WIN"),
+        1: spanish_char('í', platform="WIN"), 5: spanish_char('Í', platform="WIN"), 9: spanish_char('ñ', platform="WIN"), 13: spanish_char('Ñ', platform="WIN"),
+        0: spanish_char('ó', platform="WIN"), 4: spanish_char('Ó', platform="WIN"), 8: spanish_char('¿', platform="WIN"), 12: spanish_char('¡', platform="WIN")
         },
     3: {
-        3: ("KEY", Keycode.SPACE), 
+        3: ("KEY", Keycode.SPACE),
         2: ("KEY", Keycode.T), 6: ("MIDI", ControlChange(7, 100)),  # Control Change for volume control, value 100
         1: ("KEY", Keycode.D), 5: ("MIDI", NoteOff(60, 0)),     # Send NoteOff for middle C
         0: ("KEY", Keycode.X), 4: ("MIDI", NoteOn(60, 120))   # Send NoteOn for middle C with velocity 120
         }
-}
-
-# Encoder actions per layer, define separately from layers. Default is volume-up and volume-down.
-encoder_actions = {
-    0: {"encoder-up": lambda: print("Layer 0 Encoder Up"), "encoder-down": lambda: print("Layer 0 Encoder Down")},
-    1: {"encoder-up": lambda: print("Layer 1 Encoder Up"), "encoder-down": lambda: print("Layer 1 Encoder Down")},
-    2: {"encoder-up": lambda: print("Volume Up"), "encoder-down": lambda: print("Volume Down")},
-    3: {"encoder-up": lambda: print("Layer 3 Encoder Up"), "encoder-down": lambda: print("Layer 3 Encoder Down")},
 }
 
 # Layer Labels for OLED Display
@@ -87,15 +84,16 @@ layer_labels_map = {
         0: "0", 4: ".", 8: "Del", 12: "Enter",
         },
     1: {
-        3: "á", 7: "ú",
-        2: "os", 6: "ó",
-        1: "ñ", 5: "í",
-        0: "enga", 4: "é"
+        3: "LNG",
+        2: "STR", 6: "/STR",
+        1: "<LNG>", 5: "</LNG>",
+        0: "TGT"
         },
     2: {
-        2: "Vol-",
-        1: "Vol+",
-        0: "Play/Pause"
+        3: "'a", 7: "'A", 11: "'u", 15: "'U",
+        2: "'e", 6: "'E", 10: ":u", 14: ":U",
+        1: "'i", 5: "'I", 9: "~n", 13: "~N",
+        0: "'o", 4: "'O", 8: "?", 12: "!"
         },
     3: {
         3: "Space",
@@ -103,6 +101,26 @@ layer_labels_map = {
         1: "D", 5: "C4off",
         0: "X", 4: "C4on"
         }
+}
+
+# Encoder actions per layer, defined separately from layers. Default is volume-up and volume-down.
+encoder_actions = {
+    0: {
+        "encoder-up": lambda: print("Layer 1 Encoder Up"),
+        "encoder-down": lambda: print("Layer 1 Encoder Down")
+        },
+    1: {
+        "encoder-up": lambda: print("Layer 1 Encoder Up"),
+        "encoder-down": lambda: print("Layer 1 Encoder Down")
+        },
+    2: {
+        "encoder-up": lambda: print("Layer 2 Encoder Up"),
+        "encoder-down": lambda: print("Layer 2 Encoder Down")
+        },
+    3: {
+        "encoder-up": lambda: print("Layer 3 Encoder Up"),
+        "encoder-down": lambda: print("Layer 3 Encoder Down")
+        },
 }
 
 # Definitions for large, "7-segment" style graphics for layer indication

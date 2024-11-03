@@ -67,8 +67,8 @@ neopixel = NeoPixel(encoder, 6, 1, brightness=BRIGHTNESS)
 print("Rotary encoder and NeoPixel initialized.")
 
 # Initialize MIDI on USB
-midi = MIDI(midi_out=usb_midi.ports[1], out_channel=0)
-print("USB MIDI intialized on channel 0")
+midi = MIDI(midi_out=usb_midi.ports[1], out_channel=1)
+print("USB MIDI intialized on channel 1")
 
 current_layer = 0
 last_activity_time = time.monotonic()
