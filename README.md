@@ -8,4 +8,4 @@ Supports MIDI events. Also supports key, text, and mouse events, plus non-US key
 * Macro-Handler: [Nox Ferocia](https://forums.pimoroni.com/t/macro-handler-for-keybow2040-pico-keypad-base-etc/21080)
 * Devs who created the adafruit bundle and PMK library.
 ## Image
-[layer0.jpg]
+[layer0.jpg]: https://github.com/InTec-PCPS/Keybow2040/blob/main/layer0.jpg
