@@ -32,7 +32,7 @@ I guess the refresh rate of the OLED display doesn't mesh with my camera. There 
 1. Printed case files and inserted heat-set inserts, per ntindle's instructions.
 2. Soldered QT cable to the keybow2040. Four wires: +3V, GND, SDA, SCL.
 3. Mounted keybow2040, OLED, and encoder board in case with M2.5 screws. Assembled case.
-4. Flashed CircuitPython UF2 (version 9.2 RC on mine)
+4. Flashed CircuitPython UF2 (version 9.2.0 on mine)
 5. Lots of trial and error.
 6. Working code provided here.
 ## Still working on...
