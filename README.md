@@ -16,6 +16,7 @@ I guess the refresh rate of the OLED display doesn't mesh with my camera. There 
 * PMK library and HID examples: [Pimoroni](https://github.com/pimoroni/pmk-circuitpython)
 * Macro-Handler: [Nox Ferocia](https://forums.pimoroni.com/t/macro-handler-for-keybow2040-pico-keypad-base-etc/21080)
   * This goldmine gives macro chaining, multiple types per layer, and non-US character support.
+* Extended consumer control codes: [neradoc](https://github.com/Neradoc/Circuitpython_Keyboard_Layouts/tree/main/libraries/helpers)
 * Devs who created the adafruit bundle and PMK library.
 
 
