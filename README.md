@@ -1,6 +1,6 @@
 # Keybow2040
 A macropad built around Pimoroni's Keybow2040 with OLED and rotary encoder. This is a personal project that I use daily. It works, so I thought I'd share.
-* Works with CircuitPython 9.x
+* Works with CircuitPython 9.2.0
 * Supports keypresses, text macros, and non-US characters. Should also support mouse and MIDI events, but untested so far.
 * Multiple types can be used in each layer...and even chained in a single macro.
 * Press encoder to change layers. Displays a large bitmapped number on layer changes.
