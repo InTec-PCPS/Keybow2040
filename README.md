@@ -34,3 +34,7 @@ A macropad built around Pimoroni's Keybow2040 with OLED and rotary encoder. This
 4. Flashed CircuitPython UF2 (version 9.2 RC on mine)
 5. Lots of trial and error.
 6. Working code provided here.
+## Still working on...
+* Testing MIDI support
+* Testing encoder actions per layer
+* Testing mouse events
