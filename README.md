@@ -16,6 +16,7 @@ A macropad built around Pimoroni's Keybow2040 with OLED and rotary encoder. This
 * Devs who created the adafruit bundle and PMK library.
 ## Image
 ![macropad with oled and rotary encoder](https://github.com/InTec-PCPS/Keybow2040/blob/main/layer0.jpg?raw=true)
+I guess the refresh rate of the OLED display doesn't mesh with my camera. There IS another row at the top.
 ## Parts Used
 * [Pimoroni Keybow2040](https://shop.pimoroni.com/products/keybow-2040?variant=32399559589971)
 * [Adafruit I2C OLED Module](https://www.adafruit.com/product/326)
