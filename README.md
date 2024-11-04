@@ -26,8 +26,8 @@ I guess the refresh rate of the OLED display doesn't mesh with my camera. There 
 * 3D-printed case designed by ManelTo
 * M2.5 heat-set inserts
 * Soldering iron
-* Aa box of M2.5 screws, sold as a laptop screw kit in various lengths.
-* Keycaps are just extra nuphy keys from my existing keyboard.
+* Aa box of M2.5 screws in various lenghts, sold as a laptop screw kit.
+* Keycaps (extra nuphy keys) and a generic knob.
 ## Process
 1. Printed case files and inserted heat-set inserts, per ntindle's instructions.
 2. Soldered QT cable to the keybow2040. Four wires: +3V, GND, SDA, SCL.
