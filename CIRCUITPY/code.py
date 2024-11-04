@@ -1,25 +1,25 @@
-#Basic board setup (keys and LEDs)
+#Import libraries for keys and LEDs. MacroHandler gets the HID libraries.
 import time
 from pmk import PMK
 from pmk.platform.keybow2040 import Keybow2040 as Hardware
 from macro_handler import MacroHandler
 
-#Basic OLED module setup
+#Import libraries to support the OLED module
 import board
 import busio
 from adafruit_ssd1306 import SSD1306_I2C
 
-#Basic Rotary Encoder module setup
+#Import libraries to support the rotary encoder module
 from adafruit_seesaw.seesaw import Seesaw
 from adafruit_seesaw.digitalio import DigitalIO
 from adafruit_seesaw.rotaryio import IncrementalEncoder
 from adafruit_seesaw.neopixel import NeoPixel
 
-#Basic MIDI setup
+#Import libraries to support MIDI events
 import usb_midi
 from adafruit_midi import MIDI
 
-# Import custom configuration
+# Import custom configuration from config.py which contains all the editable bits.
 from config import (
     BRIGHTNESS,
     INACTIVITY_TIMEOUT,
@@ -30,33 +30,34 @@ from config import (
     spanish_char,
     numbers_bitmap
 )
+print("\n[OK] Libraries and configuration")
 
-# Initialize I2C bus
+# Start up the I2C bus
 i2c = busio.I2C(board.SCL, board.SDA)
-print("Initialized I2C bus.")
+print("[OK] I2C bus")
 
-# Perform I2C scan to confirm device addresses
+# Scan the I2C bus to confirm device addresses
 while not i2c.try_lock():
     pass
 try:
     addresses = [hex(device_address) for device_address in i2c.scan()]
-    print("I2C addresses found:", addresses)
+    print("     I2C addresses found:", addresses)
 finally:
     i2c.unlock()
 
-# Initialize OLED
+# Start up the OLED module
 oled = SSD1306_I2C(128, 64, i2c, addr=0x3D)
 oled.fill(0)
-oled.text("Keybow Ready", 0, 0, 1)
+oled.text("Display Ready", 0, 0, 1)
 oled.show()
-print("OLED initialized and message displayed.")
+print("[OK] OLED display")
 time.sleep(2)
 
 # Initialize Keybow and MacroHandler
 keybow = PMK(Hardware(i2c=i2c))
 keys = keybow.keys
 macro_comm = MacroHandler()
-print("Keybow and MacroHandler initialized.")
+print("[OK] Keybow and MacroHandler")
 
 # Initialize Rotary Encoder and NeoPixel on Seesaw
 encoder = Seesaw(i2c, addr=0x36)
@@ -64,11 +65,11 @@ encoder_button = DigitalIO(encoder, 24)
 rotary_encoder = IncrementalEncoder(encoder)
 last_position = rotary_encoder.position
 neopixel = NeoPixel(encoder, 6, 1, brightness=BRIGHTNESS)
-print("Rotary encoder and NeoPixel initialized.")
+print("[OK] Rotary encoder and NeoPixel")
 
 # Initialize MIDI on USB
 midi = MIDI(midi_out=usb_midi.ports[1], out_channel=1)
-print("USB MIDI intialized on channel 1")
+print("[OK] USB MIDI on MIDI channel 1")
 
 current_layer = 0
 last_activity_time = time.monotonic()
@@ -76,8 +77,8 @@ oled_active = True
 
 # Display large layer number on changes
 def display_large_layer_text(layer):
-    oled.fill(0)  # Clear the display
-    text = str(layer)  # Convert layer to string
+    oled.fill(0)
+    text = str(layer)
 
     # Define pixel size and spacing for each block
     pixel_size = 8
@@ -85,10 +86,8 @@ def display_large_layer_text(layer):
     y_offset = 16  # Adjust to center vertically
 
     if text in numbers_bitmap:
-        # Get the bitmap for the current layer's number
         bitmap = numbers_bitmap[text]
         
-        # Draw each "1" as a filled rectangle on the OLED
         for row, line in enumerate(bitmap):
             for col, pixel in enumerate(line):
                 if pixel == "1":
@@ -102,14 +101,14 @@ def display_large_layer_text(layer):
 # Display Key Labels on OLED
 def update_oled_layer_display(layer):
     display_large_layer_text(layer)
-    oled.fill(0)  # Clear after layer display
+    oled.fill(0)
     oled.show()
     layer_labels = layer_labels_map.get(layer, {i: "" for i in range(16)})
     for col in range(4):
         for row in range(4):
             key_index = col * 4 + (3 - row)
             label_text = layer_labels.get(key_index, "")
-            oled.text(label_text, col * 32, row * 16, 1)  # Adjust for 128x64 layout
+            oled.text(label_text, col * 32, row * 16, 1)  # (for 128x64)
     oled.show()
 
 def sleep_oled():
@@ -117,7 +116,7 @@ def sleep_oled():
     oled.fill(0)
     oled.show()
     oled_active = False
-    print("OLED is now in sleep mode.")
+    print("OLED is very sleepy.")
 
 def wake_oled():
     global oled_active
@@ -131,11 +130,12 @@ def update_leds_for_layer(layer):
         keys[k].set_led(*colours[layer])
     neopixel.fill(colours[layer])
 
-# Initial display and LED setup for Layer 0
+# Sets the initial LED and OLED display for Layer 0
 update_oled_layer_display(current_layer)
 update_leds_for_layer(current_layer)
 
 # Main Loop
+print("[OK] All good. Starting Main Loop.")
 while True:
     keybow.update()
     current_time = time.monotonic()
