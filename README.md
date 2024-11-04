@@ -2,6 +2,7 @@
 A macropad built around Pimoroni's Keybow2040 with OLED and rotary encoder. This is a personal project that I use daily. It works, so I thought I'd share.
 * Works with CircuitPython 9.x
 * Supports keypresses, text macros, and non-US characters. Should also support mouse and MIDI events, but untested so far.
+* Multiple types can be used in each layer...and even chained in a single macro.
 * Press encoder to change layers. Displays a large bitmapped number on layer changes.
 * Encoder up/down actions are configurable per layer, but volume up/down is the default if nothing else is set. Still testing this.
 * Set up for four layers (0-3) by default, but more can be added.
@@ -11,6 +12,7 @@ A macropad built around Pimoroni's Keybow2040 with OLED and rotary encoder. This
 * Updated ideas and instructions: [ntindle](https://github.com/ntindle/Keybow2040-Macro-Pad/tree/main)
 * PMK library and HID examples: [Pimoroni](https://github.com/pimoroni/pmk-circuitpython)
 * Macro-Handler: [Nox Ferocia](https://forums.pimoroni.com/t/macro-handler-for-keybow2040-pico-keypad-base-etc/21080)
+  * This goldmine gives macro chaining, multiple types per layer, and non-US character support.
 * Devs who created the adafruit bundle and PMK library.
 ## Image
 ![macropad with oled and rotary encoder](https://github.com/InTec-PCPS/Keybow2040/blob/main/layer0.jpg?raw=true)
